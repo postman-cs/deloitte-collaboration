@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Item API
+  version: 1.0.0
+paths:
+  /items/{item_id}:
+    get:
+      summary: Get a specific item by its ID
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+        "404":
+          description: Item not found
+  /items:
+    post:
+      summary: Create a new item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateItem"
+      responses:
+        "201":
+          description: Item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+        "500":
+          description: Failed to create the item
+
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        # Add other properties of Item here
+    CreateItem:
+      type: object
